@@ -1,0 +1,29 @@
+#Model Fitting- (Rpart,Glm,Stepmodel)
+
+#rpart
+library(rpart)
+Modelfit = rpart(formula = DD ~ .,
+                 data = training_set)
+summary(Modelfit)
+Classification = predict(Modelfit, newdata = test_set[-11], type = 'class')
+cm = table(test_set$DD,Classification)
+cm = table(test_set[, 11], Classification)
+cm
+
+#glm
+library(MASS)
+Log.Model <- glm(formula = DD ~., 
+                  family = binomial,
+                  data = training_set)
+summary(Log.Model)
+ProbPred = predict(Log.Model, type = 'response', newdata = test_set[-11])
+y_pred = ifelse(ProbPred > 0.5, 1, 0)
+y_pred
+cm = table(test_set[, 11],ProbPred > 0.5)
+table(y_pred,test_set[,11])
+cm
+
+# Stepwise regression model
+step.model <- stepAIC(Log.Model, direction = "both", 
+                      trace = FALSE)
+summary(step.model)
