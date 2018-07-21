@@ -1,0 +1,15 @@
+Data and Exploratory analysis:
+•	Dataset: Massive, Large patient’s history records from 5 different databases
+•	Data Extraction and Automation: MS-SQL server ,SSIS
+•	Period of Data: 2013 to 2018
+•	Pre-processing and Building Model: R studio, Weka
+•	Exploratory analysis: SPSS, Excel, ggplot-R
+Unique patient records extracted from different databases corresponding to GP, Discharges, Conditions, Admissions etc.
+Massive Datasets extracted from five different databases corresponding to patient details and complaints,
+•	Mental Health
+•	Possible Patient Conditions
+•	History of Delay
+•	High Resource Patients
+•	Admissions
+Pre-processing of massive data after extraction using R studio and Weka. 
+Exploratory analysis of data -Distributions of extracted data, spotting extreme values, Normalization check using SPSS, also to check for multicollinearity.
