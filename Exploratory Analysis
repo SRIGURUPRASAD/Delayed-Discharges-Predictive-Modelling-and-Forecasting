@@ -1,0 +1,40 @@
+sumary(FinalData)
+library(tidyverse)
+describe(FinalData)
+ggplot(data = FinalData) +
+  geom_bar(mapping = aes(x = Conditions))
+
+library(ggplot2)
+ggplot(FinalData, aes(x = DD,fill = Dementia)) + 
+  theme_bw() +
+  geom_bar()
+  
+ggplot(FinalData, aes(x = DD,fill = Parkinsons)) +
+  theme_bw() +
+  geom_bar()
+  
+ggplot(ExtData, aes(x = DD,fill = MS)) +
+  theme_bw() +
+  geom_bar()
+  
+ggplot(FinalData, aes(x = DD,fill = COPD)) + 
+  theme_bw() +
+  geom_bar()
+  
+ggplot(FinalData, aes(x = DD,fill = CVD)) + 
+  theme_bw() +
+  geom_bar()
+  
+ggplot(FinalData, aes(x = HGI.Score)) +
+  theme_bw() +
+  geom_histogram(binwidth = 10) +
+  labs(y = "Score",
+       x = "HGI Score (binwidth = 10)",
+       title = "HGI Score Distribution")
+
+ggplot(FinalData, aes(x = Delayed.Days)) +
+  theme_bw() +
+  geom_histogram(binwidth = 10) +
+  labs(y = "Count",
+       x = "DelayedDays (binwidth = 10)",
+       title = "Delayed Days ")
