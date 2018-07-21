@@ -1,0 +1,46 @@
+ExtData<-read.csv(file.choose(),header = TRUE)
+ExtData = ExtData[1:13]
+ExtData1= ExtData[1:2]
+ExtData2= ExtData[4:13]
+FinalData = cbind(ExtData1,ExtData2)
+FinalData =FinalData[2:12]
+
+FinalData$MS = factor(FinalData$MS,
+                      levels = c(0, 1),
+                      labels = c(-1, 1))
+FinalData$Dementia = factor(FinalData$Dementia,
+                            levels = c(0, 1),
+                            labels = c(-1, 1))
+FinalData$COPD = factor(FinalData$COPD,
+                        levels = c(0, 1),
+                        labels = c(-1, 1))
+FinalData$Parkinsons = factor(FinalData$Parkinsons,
+                              levels = c(0, 1),
+                              labels = c(-1, 1))
+FinalData$CVD = factor(FinalData$CVD,
+                       levels = c(0, 1),
+                       labels = c(-1, 1))
+FinalData$DD = factor(FinalData$DD,
+                      levels = c(-1, 1),
+                      labels = c(0, 1))
+FinalData$HGI = factor(FinalData$HGI,
+                       levels = c(0, 1),
+                       labels = c(-1, 1))
+FinalData$Urinary.Problem = factor(FinalData$Urinary.Problem,
+                                   levels = c(0, 1),
+                                   labels = c(-1, 1))
+FinalData$Mental.Illness = factor(FinalData$Mental.Illness,
+                                  levels = c(0, 1),
+                                  labels = c(-1, 1))
+FinalData$Falls = factor(FinalData$Falls,
+                         levels = c(0, 1),
+                         labels = c(-1, 1))
+library(caTools)
+set.seed(123)
+split = sample.split(FinalData$DD, SplitRatio = 0.75)
+training_set = subset(FinalData, split == TRUE)
+test_set = subset(FinalData, split == FALSE)
+class(FinalData)
+# Feature Scaling
+training_set[-11] = scale(training_set[-11])
+test_set[-11] = scale(test_set[-11])
