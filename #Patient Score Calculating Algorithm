@@ -1,0 +1,61 @@
+#Patient Score Calculating Algorithm
+DECLARE @age float = (SELECT [New_Coeff_value]
+                      FROM [Gurutest].[dbo].[New_CoefficientsTable] where Features = 'Age'
+                     )
+  select @age
+  
+  DECLARE @ms float = (SELECT [New_Coeff_value]
+                       FROM [Gurutest].[dbo].[New_CoefficientsTable] where Features = 'MS'
+                      )
+  select @ms
+  
+  DECLARE @HGI float = (SELECT [New_Coeff_value]
+                        FROM [Gurutest].[dbo].[New_CoefficientsTable] where Features = 'HGI'
+                       )
+  select @HGI
+  DECLARE @Mental float = (SELECT [New_Coeff_value]
+                        FROM [Gurutest].[dbo].[New_CoefficientsTable] where Features = 'Mental Illness'
+                       )
+  select @Mental
+  
+  DECLARE @Falls float = (SELECT [New_Coeff_value]
+                        FROM [Gurutest].[dbo].[New_CoefficientsTable] where Features = 'Falls'
+                       )
+  select @Falls
+  
+  DECLARE @CVD float = (SELECT [New_Coeff_value]
+                       From [Gurutest].[dbo].[New_CoefficientsTable] where Features = 'CVD'
+                       )
+  select @CVD
+  DECLARE @Dementia float = (SELECT [New_Coeff_value]
+                             FROM [Gurutest].[dbo].[New_CoefficientsTable] where Features = 'Dementia'
+                            )
+  select @Dementia
+  
+  DECLARE @Parkinsons float = (SELECT [New_Coeff_value]
+                               FROM [Gurutest].[dbo].[New_CoefficientsTable] where Features = 'Parkinsons'
+                              )
+  select @Parkinsons
+
+  DECLARE @THRESHOLD float = (SELECT [New_Coeff_value]
+                              FROM [Gurutest].[dbo].[New_CoefficientsTable] where Features = 'THRESHHOLD'
+                              )
+  select @THRESHOLD
+  
+  select CHI,(@age*AGE) + (@ms*ms) + (@Dementia*Dementia)  + (@Mental*MentalIllness) +(@Parkinsons*Parkinsons) +(@CVD*CVD)+(@HGI*HGI) +(@Falls*Falls) as SCORE
+        ,case when ((@age*Age) + (@ms*ms) + (@Dementia*Dementia)  + (@Mental*MentalIllness) + (@CVD*CVD) +(@Parkinsons*Parkinsons) + (@Falls*Falls) + (@HGI*HGI)) > @THRESHOLD 
+         then 'Send Mail' else 'No Mail' end as Decision
+  from(
+        select DISTINCT CHI
+              ,case when AGE >= 70  then 1 else 0 end as AGE
+              ,case when MS = 'Yes' Then 1 ELSE 0 end as ms
+		      ,case when HGI = 'Yes' Then 1 Else 0 end as HGI
+		      ,case when CVD = 'Yes' Then 1 Else 0 end as CVD
+              ,case when Dementia = 'Yes' Then 1 ELSE 0 end as Dementia
+		      ,case when Parkinsons = 'Yes' Then 1 ELSE 0 end as Parkinsons	
+			  ,case when [Mental Illness] = 'Yes' Then 1 ELSE 0 end as MentalIllness
+			  ,case when Falls = 'Yes' Then 1 ELSE 0 end as Falls
+        from [Gurutest].[dbo].['Test Data for 2017Eward Model']
+   ) AS sub
+   
+   
