@@ -27,3 +27,16 @@ cm
 step.model <- stepAIC(Log.Model, direction = "both", 
                       trace = FALSE)
 summary(step.model)
+
+set.seed(101) 
+sample <- sample.int(n = nrow(FinalData), size = floor(.50*nrow(FinalData)), replace = F)
+train <- FinalData[sample, ]
+test  <- FinalData[-sample, ]
+
+#k-foldcross validation
+library(caret)
+train_control <- trainControl(method="cv", number=10)
+# Folds are created on the basis of target variable
+folds <- createFolds(factor(FinalData$DD), k = 10, list = FALSE)
+model <- train(Species~., data=FinalData, trControl=train_control, method="glm")
+print(model)
